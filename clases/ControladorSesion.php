@@ -1,6 +1,7 @@
 <?php
 require_once 'Usuario.php';
 require_once 'RepositorioUsuario.php';
+require_once 'RepositorioAlumno.php';
 
 class ControladorSesion
 {
@@ -15,7 +16,7 @@ class ControladorSesion
             return [false, "Error de credenciales"];
         } else {
             session_start();
-            $_SESSION['usuario'] = serialize($usuario);
+            $_SESSION['usu_usuario'] = serialize($usuario);
             return [true, "Usuario autenticado correctamente"];
         }
     }
@@ -31,8 +32,21 @@ class ControladorSesion
         else {
             $usuario->setId($id);
             session_start();
-            $_SESSION['usuario'] = serialize($usuario);
+            $_SESSION['usu_usuario'] = serialize($usuario);
             return [ true, "Usuario creado correctamente" ];
+        }
+    }
+
+    public function createAlumno($dni, $nombres, $apellidos, $nota)
+    {
+        $repoa = new RepositorioAlumno();
+        $alumno = new Alumno($dni, $nombres, $apellidos, $nota);
+        $id = $repoa->altaAlumno($alumno);
+        if ($id === false) {
+            return [ false, "Error al crear el alumno"];
+        }
+        else {
+            return [ true, "Alumno creado correctamente" ];
         }
     }
 }
