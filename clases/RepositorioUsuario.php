@@ -25,8 +25,8 @@ class RepositorioUsuario
 
     public function login($nombre_usuario, $clave)
     {
-        $q = "SELECT id, clave, nombre, apellido FROM usuarios ";
-        $q.= "WHERE usuario = ?";
+        $q = "SELECT usu_id, usu_clave, usu_nombre, usu_apellido FROM usu_usuarios ";
+        $q.= "WHERE usu_usuario = ?";
         $query = self::$conexion->prepare($q);
         $query->bind_param("s", $nombre_usuario);
         if ( $query->execute() ) {
@@ -42,7 +42,7 @@ class RepositorioUsuario
 
     public function save(Usuario $u, $clave)
     {
-        $q = "INSERT INTO usuarios (usuario, nombre, apellido, clave) ";
+        $q = "INSERT INTO usu_usuarios (usu_usuario, usu_nombre, usu_apellido, usu_clave) ";
         $q.= "VALUES (?, ?, ?, ?)";
         $query = self::$conexion->prepare($q);
 
