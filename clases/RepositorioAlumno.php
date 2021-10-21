@@ -10,7 +10,8 @@ class RepositorioAlumno extends dataBase
         $this->conectar();
     }
 
-    public function getAlumnos($usu_id) {
+    public function getAlumnos($usu_id) 
+    {
         $usu_id = (int)$usu_id;
         $resultados = $this->mysqli->query("SELECT * FROM alu_alumnos WHERE usu_id = $usu_id");
         $alumnos = $resultados->fetch_all();
@@ -26,7 +27,8 @@ class RepositorioAlumno extends dataBase
         return [$alumnos, $promedio];   
     }
     
-    public function getAlumno($alu_id) {
+    public function getAlumno($alu_id) 
+    {
         $alu_id = (int)$alu_id;
         $resultados = $this->mysqli->query("SELECT * FROM alu_alumnos WHERE alu_id = $alu_id");
         $alumno = $resultados->fetch_assoc();
@@ -40,10 +42,10 @@ class RepositorioAlumno extends dataBase
         return "Alumno Agregado";
     }
 
-    public function eliminarAlumno($alu_id) {
+    public function eliminarAlumno($alu_id) 
+    {
         $alu_id = (int)$alu_id;
         return $this->mysqli->query("DELETE FROM alu_alumnos WHERE alu_id = $alu_id");
-        //return "Alumno Eliminado";
     }
 
     public function actualizarAlumno($alu_id, $alu_dni, $alu_nombres, $alu_apellidos, $alu_nota)
